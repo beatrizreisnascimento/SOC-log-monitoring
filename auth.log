@@ -1,17 +1,8 @@
-import re
-from collections import Counter
-
-LIMITE = 5
-falhas = Counter()
-
-with open("auth.log", "r") as log:
-    for linha in log:
-        if "Failed password" in linha:
-            ip = re.search(r"from (\d+\.\d+\.\d+\.\d+)", linha)
-            if ip:
-                falhas[ip.group(1)] += 1
-
-print("Resumo de falhas de autenticação por IP:")
-for ip, total in falhas.most_common():
-    nivel = "[ALERTA] possível força bruta" if total >= LIMITE else "[INFO]"
-    print(f"{nivel} {ip}: {total} tentativas")
+Oct 16 10:01:12 server sshd[1021]: Failed password for invalid user admin from 192.168.1.10 port 22 ssh2
+Oct 16 10:01:15 server sshd[1021]: Failed password for invalid user admin from 192.168.1.10 port 22 ssh2
+Oct 16 10:01:18 server sshd[1021]: Failed password for root from 192.168.1.10 port 22 ssh2
+Oct 16 10:01:21 server sshd[1021]: Failed password for root from 192.168.1.10 port 22 ssh2
+Oct 16 10:01:24 server sshd[1021]: Failed password for root from 192.168.1.10 port 22 ssh2
+Oct 16 10:01:27 server sshd[1021]: Failed password for root from 192.168.1.10 port 22 ssh2
+Oct 16 10:05:40 server sshd[1033]: Accepted password for beatriz from 192.168.1.25 port 22 ssh2
+Oct 16 10:09:02 server sshd[1040]: Failed password for beatriz from 192.168.1.77 port 22 ssh2
